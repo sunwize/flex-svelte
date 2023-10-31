@@ -1,6 +1,8 @@
-import admin from "$lib/credentials/admin.json";
 import { drive_v3, google } from "googleapis";
 import type { AxiosHeaders } from "axios";
+import { ADMIN_SERVICE_ACCOUNT } from "$env/static/private";
+
+const admin = JSON.parse(ADMIN_SERVICE_ACCOUNT);
 
 const jwToken = new google.auth.JWT(
     admin.client_email,
