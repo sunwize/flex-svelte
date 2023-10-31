@@ -19,16 +19,16 @@
     });
 </script>
 
-<section class="leading-snug max-w-6xl mx-auto pt-10">
+<section class="leading-snug max-w-6xl mx-auto pt-10 px-1">
     {#if tmdbMovie}
         <article class="flex">
             <img
                 src={tmdbPosterHD(tmdbMovie.image)}
                 alt={tmdbMovie.name}
                 width="500"
-                class="rounded-l-md"
+                class="hidden md:block rounded-l-md"
             />
-            <div class="bg-white/10 rounded-r-md p-5">
+            <div class="bg-white/10 rounded-l-md md:rounded-l-none rounded-r-md p-5">
                 <h1 class="text-4xl font-bold mb-5">{tmdbMovie.name}</h1>
 
                 <div class="mb-5">

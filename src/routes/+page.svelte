@@ -25,7 +25,7 @@
         <Spinner size="14" />
     </div>
 {/if}
-<section class="grid grid-cols-12 xl:grid-cols-14 gap-3 p-5">
+<section class="grid grid-cols-12 xl:grid-cols-14 gap-1 md:gap-3 p-1 md:p-5">
     {#each $filteredMovies as movie}
         <MovieTile movie={movie} />
     {/each}

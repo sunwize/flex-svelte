@@ -15,7 +15,7 @@
             <span class="text-primary-600">X</span>
         </span>
     </NavBrand>
-    <div class="flex-1 max-w-3xl">
+    <div class="hidden md:block flex-1 max-w-3xl mx-3">
         <Input
             value={$search}
             on:input={onSearchChange}
