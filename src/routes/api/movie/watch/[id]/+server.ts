@@ -8,7 +8,7 @@ export const GET: RequestHandler = async ({ params, request, setHeaders }: Reque
 
     if (!id) throw error(400, `Invalid id => provided value: ${id}`);
 
-    const headers: AxiosHeaders = new AxiosHeaders({
+    const headers = new AxiosHeaders({
         "Content-Type": "video/mp4",
     });
     const range = request.headers.get("range");
@@ -28,11 +28,13 @@ export const GET: RequestHandler = async ({ params, request, setHeaders }: Reque
         setHeaders({
             "Content-Range": stream.headers["content-range"],
             "Content-Length": stream.headers["content-length"],
+            "Content-Type": "video/mp4",
         });
         status = 206;
     } else {
         setHeaders({
             "Content-Length": stream.headers["content-length"],
+            "Content-Type": "video/mp4",
         });
     }
 
