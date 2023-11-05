@@ -7,7 +7,7 @@
 
 <a
     href={`/movie/${movie.id}`}
-    class="col-span-6 sm:col-span-4 md:col-span-3 lg:col-span-2 flex justify-center"
+    class={`flex justify-center ${$$props.class}`}
 >
     <img
         src={tmdbPoster(movie.image)}

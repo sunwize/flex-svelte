@@ -24,7 +24,7 @@ export class TMDB {
                 description: data.overview,
                 image: data.poster_path,
                 backdrop: data.backdrop_path,
-                rating: data.popularity,
+                rating: +(data.vote_average / 2).toFixed(2),
                 duration: data.runtime,
                 releaseDate: data.release_date,
             };
