@@ -6,7 +6,7 @@
 </script>
 
 <Drawer
-    class="bg-black flex flex-col h-full gap-5"
+    class="bg-black flex flex-col min-h-full gap-5"
     placement="bottom"
     width="w-full h-full"
     transitionType="fly"
@@ -24,7 +24,7 @@
                 color="dark"
             />
         </div>
-        <div class="bg-red-500 h-full relative">
+        <div class="bg-red-500 h-full relative overflow-hidden">
             <VideoPlayer class="absolute left-0 top-0 w-full h-full" />
         </div>
     {/if}

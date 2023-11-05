@@ -1,8 +1,8 @@
 <script lang="ts">
     import { Button } from "flowbite-svelte";
     import { onMount } from "svelte";
-    import { DesktopPcOutline } from "flowbite-svelte-icons";
     import { movie } from "$lib/store/player";
+    import CastIcon from "./icons/CastIcon.svelte";
 
     let isAvailable = false;
     let player = null;
@@ -54,6 +54,6 @@
         outline
         class={`!p-2 ${$$props.class}`}
     >
-        <DesktopPcOutline />
+        <CastIcon />
     </Button>
 {/if}
