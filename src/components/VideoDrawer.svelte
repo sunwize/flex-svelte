@@ -17,8 +17,8 @@
     hidden={!$visible}
 >
     {#if $movie}
-        <div class="flex items-center">
-            <h3 class="text-3xl font-bold">{$movie.name}</h3>
+        <div class="flex items-center gap-3">
+            <h3 class="text-3xl font-bold truncate">{$movie.name}</h3>
             <CloseButton
                 on:click={() => visible.set(false)}
                 color="dark"
