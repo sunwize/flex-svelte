@@ -4,32 +4,44 @@
     import { api } from "$lib/services/api";
     import type { Movie, TmdbMovie } from "../../../types/movie";
     import { tmdbPosterHD } from "$lib/images/poster";
-    import { Button, Rating } from "flowbite-svelte";
+    import { Button, Rating, Skeleton, TextPlaceholder, VideoPlaceholder } from "flowbite-svelte";
     import { PlaySolid } from "flowbite-svelte-icons";
     import { movie, visible } from "$lib/store/player";
     import { addSeconds, format } from "date-fns";
 
     let tmdbMovie: TmdbMovie;
+    let loading = false;
+    $: loaded = tmdbMovie && !loading;
 
     onMount(async () => {
-        const { data } = await api.get<Movie>(`/api/movie/${$page.params.id}`);
-        const { data: movieDetails } = await api.get<TmdbMovie>(`/api/movie/tmdb/${data.tmdbId}`);
+        try {
+            loading = true;
+            const { data } = await api.get<Movie>(`/api/movie/${$page.params.id}`);
+            const { data: movieDetails } = await api.get<TmdbMovie>(`/api/movie/tmdb/${data.tmdbId}`);
 
-        movie.set(data);
-        tmdbMovie = movieDetails;
+            movie.set(data);
+            tmdbMovie = movieDetails;
+        } finally {
+            loading = false;
+        }
     });
 </script>
 
-<section class="relative w-full h-full leading-snug max-w-6xl mx-auto pt-10 px-1 pb-1">
-    {#if tmdbMovie}
-        <article class="hidden md:flex">
+<section class="relative flex flex-col w-full h-full leading-snug max-w-6xl mx-auto md:py-10 md:px-1">
+    <article class="hidden md:grid grid-cols-12 w-full h-full">
+        {#if loaded}
             <img
                 src={tmdbPosterHD(tmdbMovie.image)}
                 alt={tmdbMovie.name}
-                width="500"
-                class="rounded-l-md object-cover"
+                class="col-span-5 h-full rounded-l-md object-cover"
             />
-            <div class="bg-white/10 rounded-l-md md:rounded-l-none rounded-r-md p-5">
+        {:else}
+            <div class="col-span-5 w-full h-full">
+                <VideoPlaceholder class="max-w-full h-full rounded-r-none" />
+            </div>
+        {/if}
+        <div class="col-span-7 bg-white/10 rounded-l-md md:rounded-l-none rounded-r-md p-5">
+            {#if loaded}
                 <h1 class="text-4xl font-bold mb-1">{tmdbMovie.name}</h1>
                 <p class="opacity-70 mb-5">
                     {format(new Date(tmdbMovie.releaseDate), "yyyy")}
@@ -55,15 +67,29 @@
                 <p>
                     {tmdbMovie.description}
                 </p>
-            </div>
-        </article>
-        <article class="md:hidden h-full overflow-hidden">
+            {:else}
+                <Skeleton size="xxl" />
+                <TextPlaceholder
+                    size="xxl"
+                    class="mt-8"
+                />
+                <TextPlaceholder
+                    size="xxl"
+                    class="mt-3"
+                />
+            {/if}
+        </div>
+    </article>
+    <article class="md:hidden h-full">
+        {#if loaded}
             <img
                 src={tmdbPosterHD(tmdbMovie.backdrop)}
                 alt={tmdbMovie.name}
                 class="absolute top-0 left-0 w-full h-full object-cover"
             />
-            <div class="relative bg-black/80 backdrop-blur rounded-l-md md:rounded-l-none rounded-r-md p-5">
+        {/if}
+        <div class="relative min-h-full bg-black/80 backdrop-blur p-5">
+            {#if loaded}
                 <h1 class="text-4xl font-bold mb-5">{tmdbMovie.name}</h1>
 
                 <div class="mb-5">
@@ -79,7 +105,13 @@
                 <p>
                     {tmdbMovie.description}
                 </p>
-            </div>
-        </article>
-    {/if}
+            {:else}
+                <Skeleton size="xxl" />
+                <TextPlaceholder
+                    size="xxl"
+                    class="mt-8"
+                />
+            {/if}
+        </div>
+    </article>
 </section>
