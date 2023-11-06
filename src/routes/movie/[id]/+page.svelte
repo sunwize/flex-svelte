@@ -27,8 +27,8 @@
     });
 </script>
 
-<section class="relative flex flex-col w-full h-full leading-snug max-w-6xl mx-auto md:py-10 md:px-1">
-    <article class="hidden md:grid grid-cols-12 w-full h-full">
+<section class="relative flex flex-col w-full flex-1 leading-snug max-w-6xl mx-auto md:py-10 md:px-1">
+    <article class="hidden md:grid grid-cols-12 w-full flex-1">
         {#if loaded}
             <img
                 src={tmdbPosterHD(tmdbMovie.image)}
@@ -80,7 +80,7 @@
             {/if}
         </div>
     </article>
-    <article class="md:hidden h-full">
+    <article class="flex md:hidden flex-col flex-1">
         {#if loaded}
             <img
                 src={tmdbPosterHD(tmdbMovie.backdrop)}
@@ -88,7 +88,7 @@
                 class="absolute top-0 left-0 w-full h-full object-cover"
             />
         {/if}
-        <div class="relative min-h-full bg-black/80 backdrop-blur p-5">
+        <div class="relative flex-1 min-h-full bg-black/80 backdrop-blur p-5">
             {#if loaded}
                 <h1 class="text-4xl font-bold mb-5">{tmdbMovie.name}</h1>
 
