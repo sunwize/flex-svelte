@@ -1,7 +1,7 @@
 <script lang="ts">
     import { search } from "$lib/store/index.js";
     import { Button, ButtonGroup, CloseButton, Input, Navbar, NavBrand } from "flowbite-svelte";
-    import { ArrowRightSolid, ArrowUpSolid, ChevronDownSolid, SearchOutline } from "flowbite-svelte-icons";
+    import { ArrowRightSolid, SearchOutline } from "flowbite-svelte-icons";
 
     let isSearchEnabled = false;
 
@@ -9,6 +9,10 @@
     const handleEnterKeyPress = (event: KeyboardEvent) => {
         if (event.key !== "Enter") return;
         isSearchEnabled = false;
+    };
+    const clearSearch = () => {
+        search.set("");
+        document.querySelector<HTMLInputElement>("#navbar-mobile-search input")?.focus();
     };
 </script>
 
@@ -46,7 +50,10 @@
             </div>
         </div>
     {:else}
-        <ButtonGroup class="w-full">
+        <ButtonGroup
+            class="w-full"
+            id="navbar-mobile-search"
+        >
             <Input
                 value={$search}
                 on:input={onSearchChange}
@@ -56,7 +63,7 @@
                 autofocus
             >
                 <CloseButton
-                    on:click={() => search.set("")}
+                    on:click={clearSearch}
                     slot="right"
                     class={`!ring-0 ${$search.length === 0 ? "hidden" : ""}`}
                 />
