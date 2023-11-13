@@ -1,8 +1,13 @@
 <script lang="ts">
     import { tmdbPoster } from "$lib/images/poster.js";
-    import type { Movie } from "../types/movie";
 
-    export let movie: Movie;
+    interface MovieTile {
+        id: string
+        image: string
+        name: string
+    }
+
+    export let movie: MovieTile;
 </script>
 
 <a
