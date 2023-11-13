@@ -21,7 +21,7 @@
         await window.cast.framework.CastContext.getInstance().requestSession();
 
         const origin = window.origin.startsWith("http://localhost") ? "http://192.168.2.14:5173" : window.origin;
-        const src = `${origin}/api/movie/watch/${$movie.id}`;
+        const src = `${origin}/api/movies/watch/${$movie.id}`;
         const mediaInfo = new window.chrome.cast.media.MediaInfo(src, "video/mp4");
         const mediaMetaData = new window.chrome.cast.media.MovieMediaMetadata();
         mediaMetaData.images = $movie.image ? [new window.chrome.cast.Image($movie.image)] : [];

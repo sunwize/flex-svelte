@@ -6,7 +6,7 @@
 </script>
 
 <a
-    href={`/movie/${movie.id}`}
+    href={`/movies/${movie.id}`}
     class={`flex justify-center ${$$props.class}`}
 >
     <img

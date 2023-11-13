@@ -16,8 +16,8 @@
     onMount(async () => {
         try {
             loading = true;
-            const { data } = await api.get<Movie>(`/api/movie/${$page.params.id}`);
-            const { data: movieDetails } = await api.get<TmdbMovie>(`/api/movie/tmdb/${data.tmdbId}`);
+            const { data } = await api.get<Movie>(`/api/movies/${$page.params.id}`);
+            const { data: movieDetails } = await api.get<TmdbMovie>(`/api/movies/tmdb/${data.tmdbId}`);
 
             movie.set(data);
             tmdbMovie = movieDetails;

@@ -3,7 +3,7 @@
     import { tmdbPosterHD } from "$lib/images/poster";
     import CastButton from "./CastButton.svelte";
 
-    $: url = `/api/movie/watch/${$movie?.id}`;
+    $: url = `/api/movies/watch/${$movie?.id}`;
 </script>
 
 {#if $movie}

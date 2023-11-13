@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-import type { Movie, TmdbMovie } from "../../types/movie";
+import type { TmdbMovie } from "../../types/movie";
 
 const api = axios.create({
     baseURL: "https://api.themoviedb.org/3",
