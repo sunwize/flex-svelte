@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
-import type { TmdbMovie } from "../../types/movie";
+import { parseTmdbMovie } from "$lib/parsers/movie";
+import type { TmdbMovie } from "@/types/movie";
 
 const api = axios.create({
     baseURL: "https://api.themoviedb.org/3",
@@ -9,6 +10,24 @@ const api = axios.create({
 });
 
 export class TMDB {
+    static async searchMovie(query: string): Promise<TmdbMovie[]> {
+        try {
+            const { data } = await api.get("/search/movie", {
+                params: {
+                    query: query,
+                    language: "fr-FR",
+                },
+            });
+
+            return Array.isArray(data.results)
+                ? data.results.map((movie: never) => parseTmdbMovie(movie))
+                : [];
+        } catch (err) {
+            console.error((err as AxiosError).response?.data);
+            return [];
+        }
+    }
+
     static async getMovie(tmdbId: string) {
         try {
             const { data } = await api.get(`/movie/${tmdbId}`, {
@@ -17,19 +36,7 @@ export class TMDB {
                 },
             });
 
-            const movie: TmdbMovie = {
-                tmdbId: data.id,
-                imdbId: data.imdb_id,
-                name: data.title,
-                description: data.overview,
-                image: data.poster_path,
-                backdrop: data.backdrop_path,
-                rating: +(data.vote_average / 2).toFixed(2),
-                duration: data.runtime,
-                releaseDate: data.release_date,
-            };
-
-            return movie;
+            return parseTmdbMovie(data);
         } catch (err) {
             console.error((err as AxiosError).response?.data);
             return null;
