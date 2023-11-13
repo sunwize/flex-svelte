@@ -2,8 +2,11 @@
     import { search } from "$lib/store/index.js";
     import { Button, ButtonGroup, CloseButton, Input, Navbar, NavBrand } from "flowbite-svelte";
     import { ArrowRightSolid, SearchOutline } from "flowbite-svelte-icons";
+    import { page } from "$app/stores";
 
     let isSearchEnabled = false;
+
+    $: isSearchVisible = $page.url.pathname !== "/";
 
     const onSearchChange = (event: Event) => search.set((event.target as HTMLInputElement).value);
     const handleEnterKeyPress = (event: KeyboardEvent) => {
@@ -25,28 +28,34 @@
                     <span class="text-primary-600">X</span>
                 </span>
             </NavBrand>
-            <div class="hidden md:block flex-1 max-w-3xl mx-3">
-                <Input
-                    value={$search}
-                    on:input={onSearchChange}
-                    placeholder="Search movie..."
-                    class="!bg-white/10 hover:!bg-white/20 focus:!bg-white/20"
-                >
-                    <SearchOutline
-                        slot="left"
-                        class="w-4 h-4"
-                    />
-                </Input>
-            </div>
+            {#if !isSearchVisible}
+                <div class="hidden md:block flex-1 max-w-3xl mx-3">
+                    <Input
+                        value={$search}
+                        on:input={onSearchChange}
+                        placeholder="Search movie..."
+                        class="!bg-white/10 hover:!bg-white/20 focus:!bg-white/20"
+                    >
+                        <SearchOutline
+                            slot="left"
+                            class="w-4 h-4"
+                        />
+                    </Input>
+                </div>
+            {/if}
             <div class="flex items-center gap-3">
-                <Button
-                    on:click={() => isSearchEnabled = true}
-                    outline
-                    class="md:hidden border-0 !bg-transparent !p-2"
-                >
-                    <SearchOutline class="outline-0 text-white" />
-                </Button>
-                <Button>Upload</Button>
+                {#if !isSearchVisible}
+                    <Button
+                        on:click={() => isSearchEnabled = true}
+                        outline
+                        class="md:hidden border-0 !bg-transparent !p-2"
+                    >
+                        <SearchOutline class="outline-0 text-white" />
+                    </Button>
+                {/if}
+                {#if $page.url.pathname !== "/movies/upload"}
+                    <Button href="/movies/upload">Upload</Button>
+                {/if}
             </div>
         </div>
     {:else}
