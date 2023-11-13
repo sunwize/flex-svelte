@@ -1,5 +1,5 @@
 import { derived, get, writable } from "svelte/store";
-import type { Movie } from "../../types/movie";
+import type { Movie } from "@/types/movie";
 
 export const movies = writable<Movie[]>([]);
 export const search = writable("");

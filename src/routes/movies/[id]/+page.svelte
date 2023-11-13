@@ -2,7 +2,7 @@
     import { page } from "$app/stores";
     import { onMount } from "svelte";
     import { api } from "$lib/services/api";
-    import type { Movie, TmdbMovie } from "../../../types/movie";
+    import type { Movie, TmdbMovie } from "@/types/movie";
     import { tmdbPosterHD } from "$lib/images/poster";
     import { Button, Rating, Skeleton, TextPlaceholder, VideoPlaceholder } from "flowbite-svelte";
     import { PlaySolid } from "flowbite-svelte-icons";
