@@ -16,6 +16,7 @@ declare module "torrent-search-api" {
         disableProvider: (provider: string) => void
         isProviderActive: (provider: string) => boolean
         search: (providers: string[], query?: string, category?: string, limit?: number) => Promise<Torrent[]>
+        getMagnet: (torrent: Torrent) => Promise<string>
     }
 
     const api: TorrentSearchApi;
