@@ -1,6 +1,7 @@
 import { drive_v3, google } from "googleapis";
 import type { AxiosHeaders } from "axios";
 import { ADMIN_SERVICE_ACCOUNT } from "$env/static/private";
+import { TMDB } from "$lib/services/tmdb";
 
 const admin = JSON.parse(ADMIN_SERVICE_ACCOUNT);
 
@@ -67,5 +68,28 @@ export class Drive {
             responseType: "stream",
             headers,
         });
+    }
+
+    static async uploadFromStream(tmdbId: string, stream: NodeJS.ReadableStream) {
+        const movie = await TMDB.getMovie(tmdbId);
+
+        if (!movie) throw new Error(`Movie with tmdbId ${tmdbId} not found`);
+
+        const metadata = {
+            name: "",
+            parents: [],
+            appProperties: {
+                parentId: "",
+                image: movie.backdrop,
+                backdrop: movie.backdrop,
+                tmdbId,
+                imdbId: movie.imdbId,
+                rating: movie.rating,
+                release_date: movie.releaseDate,
+                upload_date: new Date().toISOString(),
+            },
+        };
+
+        // TODO: Upload the stream to the Drive
     }
 }
