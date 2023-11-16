@@ -1,18 +1,10 @@
 declare module "torrent-search-api" {
-    interface Provider {
+    import type { Torrent } from "@/types/torrent";
+
+    export interface Provider {
         name: string
         public: boolean
         categories: string[]
-    }
-
-    interface Torrent {
-        desc: string
-        peers: number
-        provider: string
-        seeds: number
-        size: string
-        time: string
-        title: string
     }
 
     interface TorrentSearchApi {
