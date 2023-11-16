@@ -38,7 +38,5 @@ export const GET: RequestHandler = async ({ params, request, setHeaders }: Reque
         });
     }
 
-    return new Response(stream.data, {
-        status,
-    });
+    return new Response(stream.data as unknown as BodyInit, { status });
 };

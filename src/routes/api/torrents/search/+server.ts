@@ -13,7 +13,7 @@ export const GET: RequestHandler = async ({ url }: RequestEvent) => {
         providers.map((provider) => provider.name),
         query,
         "Movies",
-        20,
+        10,
     );
 
     return json(torrents);
